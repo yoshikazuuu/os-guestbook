@@ -34,7 +34,7 @@ services:
             - 'traefik.http.routers.guestbook.tls.certresolver=myresolver'
             - 'traefik.http.routers.guestbook.middlewares=guestbook-ratelimit'
             # Define separate router for POST methods
-            - 'traefik.http.middlewares.guestbook-ratelimit-post.ratelimit.average=1'
+            - 'traefik.http.middlewares.guestbook-ratelimit-post.ratelimit.average=5'
             - 'traefik.http.middlewares.guestbook-ratelimit-post.ratelimit.period=1m'
             - 'traefik.http.routers.guestbook-post.rule=Host(`os.jer.ee`) && Method(`POST`)'
             - 'traefik.http.routers.guestbook-post.middlewares=guestbook-ratelimit-post'
