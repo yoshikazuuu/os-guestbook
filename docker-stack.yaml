@@ -82,4 +82,4 @@ volumes:
     letsencrypt:
 secrets:
     db-password:
-        external: true
+        file: db/password.txt
