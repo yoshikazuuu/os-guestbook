@@ -27,23 +27,9 @@ services:
         image: yoshikazuuu/os-guestbook:${GIT_COMMIT_HASH:-prod}
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.middlewares.guestbook-ratelimit.ratelimit.average=20'
-            - 'traefik.http.routers.guestbook.rule=Host(`os.jer.ee`) && !Method(`POST`)'
-            - 'traefik.http.services.guestbook.loadbalancer.server.port=8080'
+            - 'traefik.http.routers.guestbook.rule=Host(`os.jer.ee`)'
             - 'traefik.http.routers.guestbook.entrypoints=websecure'
             - 'traefik.http.routers.guestbook.tls.certresolver=myresolver'
-            - 'traefik.http.routers.guestbook.middlewares=guestbook-ratelimit'
-            # Define separate router for POST methods
-            - 'traefik.http.middlewares.guestbook-ratelimit-post.ratelimit.average=1'
-            - 'traefik.http.middlewares.guestbook-ratelimit-post.ratelimit.period=1m'
-            - 'traefik.http.routers.guestbook-post.rule=Host(`os.jer.ee`) && Method(`POST`)'
-            - 'traefik.http.routers.guestbook-post.middlewares=guestbook-ratelimit-post'
-            - 'traefik.http.routers.guestbook-post.entrypoints=websecure'
-            - 'traefik.http.routers.guestbook-post.tls.certresolver=myresolver'
-            # Proxy
-            # - 'traefik.http.routers.proxy.rule=Host(`proxy.os.jer.ee`)'
-            # - 'traefik.http.routers.proxy.entrypoints=websecure'
-            # - 'traefik.http.routers.proxy.tls.certresolver=myresolver'
         secrets:
             - db-password
         environment:
